@@ -1,33 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import Nav from '../Nav';
 import Row from '../Row';
-import moovies from '../movie_db.json';
+import movies from '../movie_db.json';
 
 function HomeScreen() {
-  //   const gen = value.map(gen => gen);
+  const genres = movies.map(movie => movie?.genres);
 
-  const [category, setCategory] = useState([]);
+  const finalArray = [...genres];
 
-  useEffect(() => {
-    setCategory(actionFunction());
-  }, []);
+  console.log(finalArray);
 
-  const actionFunction = () => {
-    const genres = moovies.map(genres => genres);
-    console.log(genres);
-    return genres;
-  };
+  let flattened = finalArray.reduce((acc, curVal) => acc.concat(curVal), []);
+  console.log(flattened);
+  //let uniqueValuesArray = [...new Set(flattened)];
 
-  console.log(category);
-  //   const gen1 = genres
-  //     .filter(genre => genre)
-  //     .map((genre, i) => {
-  //       console.log(genre, i);
-  //     });
+  //console.log(uniqueValuesArray);
 
-  //   console.log(gen1);
   return (
-    <div className='homescreen' action={category}>
+    <div className='homescreen'>
       <Nav />
 
       <div
@@ -38,28 +28,13 @@ function HomeScreen() {
           paddingTop: '120px',
         }}
       >
-        <h2>Action</h2>
-        <Row title='Action' />
-        <h2>Adventure</h2>
-        <Row title='Adventure' />
-        <h2>Crime</h2>
-        <Row title='Crime' />
-        <h2>Drama</h2>
-        <Row title='Drama' />
-        <h2>Sci-Fi</h2>
-        <Row title='Sci-Fi' />
-        <h2>Biography</h2>
-        <Row title='Biography' />
-        <h2>History</h2>
-        <Row title='History' />
-        <h2>Thriller</h2>
-        <Row title='Thriller' />
-        <h2>Mystery</h2>
-        <Row title='Mystery' />
-        <h2>Animation</h2>
-        <Row title='Animation' />
-        <h2>Romance</h2>
-        <Row title='Romance' />
+        {flattened.map(title => (
+          <>
+            {console.log(title)}
+            <h2>{title}</h2>
+            <Row title={title} />
+          </>
+        ))}
       </div>
     </div>
   );
